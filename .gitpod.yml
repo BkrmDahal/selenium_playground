@@ -1,0 +1,9 @@
+tasks:
+  - init: |
+      pip install -r requirments.txt
+      bash install_chromdriver.sh
+
+
+vscode:
+  extensions:
+    - ms-python.python
