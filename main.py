@@ -4,16 +4,24 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from loguru import logger
 
 # set up options for headless browsing
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument('--no-sandbox')     
+
+
+# create Firefox options object
+firebox_options = Options()
+firebox_options.add_argument("--headless")
 
 # create a new instance of the Chrome driver
-driver = webdriver.Chrome(options=chrome_options)
+# driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Firefox(options=firebox_options)
 
 # navigate to the website's login page
 # driver.get("https://example.com/login")
@@ -45,7 +53,11 @@ while True:
 text = driver.page_source
 text = driver.execute_script("return document.body.innerText")
 logger.info(f"text: {text}")
-driver.save_screenshot("screen-shot.png")
+
+# save files
+driver.save_screenshot("website.png")
+with open('website.txt', "w") as f:
+    f.write(text)
 
 # close the browser window
 driver.quit()
